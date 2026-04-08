@@ -1,0 +1,27 @@
+env: "local"
+
+db:
+  host: "localhost"
+  port: 5434
+  user: "postgres"
+  password: "postgres"
+  name: "auth_db"
+
+auth:
+  jwt_secret: "your_jwt_secret"
+  token_ttl_minutes: 60
+
+github:
+  app_id: 0
+  private_key_path: ""
+  client_id: "Iv23liaGWicNdzO4CAhs"
+  client_secret: "cb98a166cc2c72f29e9f2258ec173c5fbdb95502"
+  webhook_secret: ""
+
+server:
+  host: "0.0.0.0"
+  port: 8001
+  base_url: "http://localhost:8001"
+
+deployments_service:
+  base_url: "http://localhost:8000"
