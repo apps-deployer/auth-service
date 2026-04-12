@@ -7,3 +7,8 @@ sqlalchemy[asyncio]==2.0.40
 asyncpg==0.30.0
 pyjwt==2.10.1
 httpx==0.28.1
+
+# Testing
+pytest==8.3.5
+pytest-asyncio==0.24.0
+anyio==4.7.0
