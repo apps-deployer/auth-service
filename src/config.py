@@ -35,6 +35,7 @@ class ServerConfig(BaseModel):
     host: str = "0.0.0.0"
     port: int = 8001
     base_url: str = "http://localhost:8001"
+    frontend_url: str = "http://localhost:5173"
 
 
 class DeploymentsServiceConfig(BaseModel):
