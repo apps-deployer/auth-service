@@ -1,0 +1,39 @@
+image:
+  repository: ""
+  tag: latest
+  pullPolicy: IfNotPresent
+
+namespace: apps-deployer
+
+db:
+  host: postgres-auth-postgresql
+  port: 5432
+  user: auth-service
+  name: auth_db
+
+server:
+  port: 8001
+  baseUrl: ""
+  frontendUrl: ""
+
+deploymentsService:
+  baseUrl: http://deployments-service:8000
+
+ingress:
+  host: ""
+
+secrets:
+  dbPassword: ""
+  dbAdminPassword: ""
+  jwtSecret: ""
+  githubClientId: ""
+  githubClientSecret: ""
+  githubWebhookSecret: ""
+
+resources:
+  requests:
+    memory: 128Mi
+    cpu: 100m
+  limits:
+    memory: 256Mi
+    cpu: 500m
