@@ -1,0 +1,76 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth-service
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: auth-service
+  template:
+    metadata:
+      labels:
+        app: auth-service
+    spec:
+      initContainers:
+        - name: migrator
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command: ["python", "migrate.py"]
+          env:
+            - name: DB_ADMIN_URL
+              valueFrom:
+                secretKeyRef:
+                  name: auth-service-secret
+                  key: DB_ADMIN_URL
+      containers:
+        - name: auth-service
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.server.port }}
+          env:
+            - name: AUTH_DB__HOST
+              value: {{ .Values.db.host | quote }}
+            - name: AUTH_DB__PORT
+              value: {{ .Values.db.port | quote }}
+            - name: AUTH_DB__USER
+              value: {{ .Values.db.user | quote }}
+            - name: AUTH_DB__NAME
+              value: {{ .Values.db.name | quote }}
+            - name: AUTH_DB__PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: auth-service-secret
+                  key: DB_PASSWORD
+            - name: AUTH_AUTH__JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: auth-service-secret
+                  key: JWT_SECRET
+            - name: AUTH_GITHUB__CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: auth-service-secret
+                  key: GITHUB_CLIENT_ID
+            - name: AUTH_GITHUB__CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: auth-service-secret
+                  key: GITHUB_CLIENT_SECRET
+            - name: AUTH_GITHUB__WEBHOOK_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: auth-service-secret
+                  key: GITHUB_WEBHOOK_SECRET
+            - name: AUTH_SERVER__PORT
+              value: {{ .Values.server.port | quote }}
+            - name: AUTH_SERVER__BASE_URL
+              value: {{ .Values.server.baseUrl | quote }}
+            - name: AUTH_SERVER__FRONTEND_URL
+              value: {{ .Values.server.frontendUrl | quote }}
+            - name: AUTH_DEPLOYMENTS_SERVICE__BASE_URL
+              value: {{ .Values.deploymentsService.baseUrl | quote }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
