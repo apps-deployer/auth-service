@@ -9,7 +9,6 @@ RUN uv pip install --system --no-cache -r requirements.txt
 
 COPY src/ src/
 COPY migrations/ migrations/
-COPY config/ config/
 COPY migrate.py .
 
 EXPOSE 8001
