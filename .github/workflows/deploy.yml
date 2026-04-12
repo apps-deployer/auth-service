@@ -52,9 +52,9 @@ jobs:
             --set secrets.dbPassword="${{ secrets.PG_AUTH_PASSWORD }}" \
             --set secrets.dbAdminPassword="${{ secrets.PG_AUTH_ADMIN_PASSWORD }}" \
             --set secrets.jwtSecret="${{ secrets.JWT_SECRET }}" \
-            --set secrets.githubClientId="${{ secrets.GITHUB_CLIENT_ID }}" \
-            --set secrets.githubClientSecret="${{ secrets.GITHUB_CLIENT_SECRET }}" \
-            --set secrets.githubWebhookSecret="${{ secrets.GITHUB_WEBHOOK_SECRET }}" \
+            --set secrets.githubClientId="${{ secrets.GH_CLIENT_ID }}" \
+            --set secrets.githubClientSecret="${{ secrets.GH_CLIENT_SECRET }}" \
+            --set secrets.githubWebhookSecret="${{ secrets.GH_WEBHOOK_SECRET }}" \
             --set server.baseUrl="${{ vars.AUTH_BASE_URL }}" \
             --set server.frontendUrl="${{ vars.FRONTEND_URL }}" \
             --set ingress.host="${{ vars.AUTH_HOST }}" \

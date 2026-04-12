@@ -53,17 +53,17 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: auth-service-secret
-                  key: GITHUB_CLIENT_ID
+                  key: GH_CLIENT_ID
             - name: AUTH_GITHUB__CLIENT_SECRET
               valueFrom:
                 secretKeyRef:
                   name: auth-service-secret
-                  key: GITHUB_CLIENT_SECRET
+                  key: GH_CLIENT_SECRET
             - name: AUTH_GITHUB__WEBHOOK_SECRET
               valueFrom:
                 secretKeyRef:
                   name: auth-service-secret
-                  key: GITHUB_WEBHOOK_SECRET
+                  key: GH_WEBHOOK_SECRET
             - name: AUTH_SERVER__PORT
               value: {{ .Values.server.port | quote }}
             - name: AUTH_SERVER__BASE_URL
