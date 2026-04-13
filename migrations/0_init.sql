@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS auth.installations (
     created_at TIMESTAMP NOT NULL DEFAULT now()
 );
 
-CREATE INDEX idx_installations_account_id ON auth.installations(github_account_id);
+CREATE INDEX IF NOT EXISTS idx_installations_account_id ON auth.installations(github_account_id);
 
 CREATE OR REPLACE FUNCTION utils.update_updated_at()
 RETURNS TRIGGER AS $$
@@ -32,7 +32,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER trg_update_users
+CREATE OR REPLACE TRIGGER trg_update_users
 BEFORE UPDATE ON auth.users
 FOR EACH ROW
 EXECUTE FUNCTION utils.update_updated_at();
