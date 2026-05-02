@@ -37,5 +37,7 @@ async def healthz():
 
 
 from src.api.auth import router as auth_router
+from src.api.internal import router as internal_router
 
 app.include_router(auth_router)
+app.include_router(internal_router)

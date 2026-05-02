@@ -17,7 +17,7 @@ spec:
         - name: migrator
           image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          command: ["python", "migrate.py"]
+          command: ["alembic", "upgrade", "head"]
           env:
             - name: DB_ADMIN_URL
               valueFrom:
@@ -64,6 +64,8 @@ spec:
                 secretKeyRef:
                   name: auth-service-secret
                   key: GH_WEBHOOK_SECRET
+            - name: AUTH_GITHUB__APP_INSTALL_URL
+              value: {{ .Values.github.appInstallUrl | quote }}
             - name: AUTH_SERVER__PORT
               value: {{ .Values.server.port | quote }}
             - name: AUTH_SERVER__BASE_URL

@@ -30,6 +30,9 @@ secrets:
   githubClientSecret: ""
   githubWebhookSecret: ""
 
+github:
+  appInstallUrl: ""
+
 resources:
   requests:
     memory: 128Mi
