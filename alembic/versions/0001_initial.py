@@ -33,32 +33,6 @@ def upgrade() -> None:
 
     op.execute(
         """
-        CREATE TABLE auth.installations (
-            id UUID PRIMARY KEY DEFAULT uuidv7(),
-            installation_id BIGINT UNIQUE NOT NULL,
-            github_account_id BIGINT NOT NULL,
-            github_account_login VARCHAR(128) NOT NULL,
-            created_at TIMESTAMP NOT NULL DEFAULT now()
-        )
-        """
-    )
-    op.execute("CREATE INDEX idx_installations_account_id ON auth.installations(github_account_id)")
-
-    op.execute(
-        """
-        CREATE TABLE auth.installation_users (
-            installation_id UUID NOT NULL REFERENCES auth.installations(id) ON DELETE CASCADE,
-            user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
-            created_at TIMESTAMP NOT NULL DEFAULT now(),
-            PRIMARY KEY (installation_id, user_id)
-        )
-        """
-    )
-    op.execute("CREATE INDEX idx_installation_users_user_id ON auth.installation_users(user_id)")
-    op.execute("CREATE INDEX idx_installation_users_installation_id ON auth.installation_users(installation_id)")
-
-    op.execute(
-        """
         CREATE OR REPLACE FUNCTION utils.update_updated_at()
         RETURNS TRIGGER AS $$
         BEGIN
@@ -88,8 +62,6 @@ def upgrade() -> None:
 
 def downgrade() -> None:
     op.execute("DROP TRIGGER IF EXISTS trg_update_users ON auth.users")
-    op.execute("DROP TABLE IF EXISTS auth.installation_users")
-    op.execute("DROP TABLE IF EXISTS auth.installations")
     op.execute("DROP TABLE IF EXISTS auth.users")
     op.execute("DROP FUNCTION IF EXISTS utils.update_updated_at()")
     op.execute("DROP SCHEMA IF EXISTS auth")

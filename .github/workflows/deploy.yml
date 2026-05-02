@@ -55,7 +55,6 @@ jobs:
             --set secrets.githubClientId="${{ secrets.GH_CLIENT_ID }}" \
             --set secrets.githubClientSecret="${{ secrets.GH_CLIENT_SECRET }}" \
             --set secrets.githubWebhookSecret="${{ secrets.GH_WEBHOOK_SECRET }}" \
-            --set github.appInstallUrl="${{ vars.GH_APP_INSTALL_URL }}" \
             --set server.baseUrl="${{ vars.AUTH_BASE_URL }}" \
             --set server.frontendUrl="${{ vars.FRONTEND_URL }}" \
             --wait --timeout 120s

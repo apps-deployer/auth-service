@@ -26,7 +26,6 @@ class AuthConfig(BaseModel):
 
 class GitHubConfig(BaseModel):
     app_id: int = 0
-    app_install_url: str = ""
     private_key_path: str = ""
     client_id: str = ""
     client_secret: str = ""
