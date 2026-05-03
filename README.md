@@ -38,12 +38,6 @@ FastAPI-сервис, отвечающий за вход через GitHub OAuth
 - `AUTH_DEPLOYMENTS_SERVICE__BASE_URL`
 - `DB_ADMIN_URL` - используется Alembic-миграциями.
 
-Для домена `xn--d1acmhpe.tech` типичные значения:
-
-- `AUTH_SERVER__BASE_URL=https://auth.xn--d1acmhpe.tech`
-- `AUTH_SERVER__FRONTEND_URL=https://xn--d1acmhpe.tech`
-- `AUTH_DEPLOYMENTS_SERVICE__BASE_URL=http://deployments-service:8000`
-
 ## Локальный запуск
 
 ```bash
